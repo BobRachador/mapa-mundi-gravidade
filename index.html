@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Borda</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            text-align: center;
+            color: rgb(221, 23, 23);
+            margin-bottom: 4%;
+            font-size: 3em;
+        }
+
+        html {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        #flu {
+            display: block;
+            width: 600px;
+            height: 330px;
+            background-image: url(./mapa-mundi-em-fundo-azul.webp);
+            border-radius: 50%;
+            margin: 0 auto;
+            transition: box-shadow 0.1s, transform 0.1s;
+            background-size: 100%;
+            background-repeat: no-repeat;
+        }
+
+        #flu:hover {
+            box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.6);
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Passe o mouse por cima<br>&#8711;</h1>
+    <div id="flu">
+
+    </div>
+    <script>
+        let globo = document.getElementById('flu')
+        const height = globo.clientHeight
+        const width = globo.clientWidth
+
+        globo.addEventListener('mousemove', movimento)
+
+        function movimento(e) {
+            const xVal = e.layerX
+            const yVal = e.layerY
+
+            const yRotation = 20 * ((xVal - width / 2) / width)
+            const xRotation = -20 * ((yVal - height / 2) / height)
+
+            const string = 'perspective(500px) scale(1.1) rotateX(' + xRotation + 'deg) rotateY(' + yRotation + 'deg)'
+            globo.style.transform = string
+        }
+        globo.addEventListener('mouseout', function () {
+            globo.style.transform = 'perspective(500px) scale(1) rotateX(0) rotateY(0)'
+        })
+
+        globo.addEventListener('mousedown', function () {
+            globo.style.transform = 'perspective(500px) scale(0.9) rotateX(0) rotateY(0)'
+        })
+        globo.addEventListener('mouseup', function () {
+            globo.style.transform = 'perspective(500px) scale(1.1) rotateX(0) rotateY(0)'
+        })
+    </script>
+</body>
+
+</html>
